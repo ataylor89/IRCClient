@@ -21,7 +21,8 @@ public class Client {
     private PrintWriter networkOut;
     private CommandLineUI commandLineUI;
     private InstantMessengerGUI gui;
-    private String username;
+    private String username = "Guest";
+    private String channel = "";
         
     public Client() {}
     
@@ -68,7 +69,7 @@ public class Client {
         ping.start();
     }
     
-    public void disconnect() {
+    public synchronized void disconnect() {
         try {
             socket.close();
         } catch (IOException ex) {
@@ -106,10 +107,18 @@ public class Client {
         if (message.startsWith("/register")) {
             this.username = message.split(" ")[1];
         }
+        
+        if (message.startsWith("JOIN")) {
+            this.channel = message.split(" ")[1];
+        }
     }
     
     public String getUserName() {
         return username;
+    }
+    
+    public String getChannel() {
+        return channel;
     }
     
     public static void main(String[] args) {

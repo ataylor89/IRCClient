@@ -36,7 +36,8 @@ public class InstantMessengerGUI extends javax.swing.JFrame {
 
     public void display(String message) {
         if (message.startsWith("PRIVMSG")) {
-            chatWindow.append(client.getUserName() + ": " + message.split(" ")[2]);
+            int len = 7 + client.getChannel().length();
+            chatWindow.append(client.getUserName() + ": " + message.substring(len+1));
         }
         else {
             chatWindow.append(message);
